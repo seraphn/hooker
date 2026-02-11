@@ -759,7 +759,7 @@ frida版本的just_trust_me，用于绕过 Android 系统中的证书校验逻�
 
 推荐命令：frida click.js
 
-![](https://raw.githubusercontent.com/CreditTone/img_resources/main/click.gif)
+
 ***
 
 ### android_ui.js
@@ -767,7 +767,6 @@ frida版本的just_trust_me，用于绕过 Android 系统中的证书校验逻�
 
 推荐命令：frida android_ui.js
 
-![](https://raw.githubusercontent.com/CreditTone/img_resources/main/android_ui.gif)
 ***
 
 ### keystore_dump.js

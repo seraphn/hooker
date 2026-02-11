@@ -428,6 +428,7 @@ current_local_apk_path = None
 current_identifier_cache_db = None
 current_identifier_cache_readonly_db = None
 current_identifier_stop_event = None
+webserver_url = None
 
 frida_device = None
 
@@ -1054,8 +1055,11 @@ def rpc_start_web_server(dex_file, all_class):
     online_script = None
     try:
         online_session, online_script = attach_rpc();
-        result = online_script.exports_sync.starthttpserver(dex_file, ",".join(all_class))
-        info(result)
+        text = online_script.exports_sync.starthttpserver(dex_file, ",".join(all_class))
+        info(text)
+        m = re.search("http:[^s]+", text)
+        if m:
+            webserver_url = m.group(0)
     except Exception:
         print(traceback.format_exc())
     finally:
@@ -1797,8 +1801,8 @@ def start_web_server(jar_file:str = None):
     else:
         rpc_start_web_server("", [])
 
-def stop_web_server(port=8080):
-    result = adb_device.shell(f"curl --max-time 3 http://127.0.0.1:{port}/stop")
+def stop_web_server():
+    result = adb_device.shell(f"curl --max-time 3 {webserver_url}/stop")
     info(result)
 
 def tail_android_file(filepath: str):
